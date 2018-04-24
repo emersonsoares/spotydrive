@@ -13,5 +13,5 @@ const options = {
 rp('https://api.spotify.com/v1/me/playlists', options)
   .then(response => JSON.parse(response))
   .then(playlists => {
-    console.log(playlists.items.map(playlist => playlist))
+    console.log(playlists.items.map(playlist => playlist.name))
   })

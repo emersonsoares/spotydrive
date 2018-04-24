@@ -32,10 +32,10 @@ const requestToken = code => {
 const server = http.createServer((req, res) => {
   const { query } = url.parse(req.url, true)
   if(query.code) {
-    requestToken(query.code)
     res.write(`
       <script>window.close()</script>
     `)
+    requestToken(query.code)
   }
 })
 
