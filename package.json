@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^2.15.1"
+    "commander": "^2.15.1",
+    "opn": "^5.3.0",
+    "request": "^2.85.0"
   }
 }
