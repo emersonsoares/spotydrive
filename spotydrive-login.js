@@ -14,19 +14,18 @@ const runCallbackServer = () => {
 }
 
 const showLoginUrl = () => {
-  const CLIENT_ID = '08ccea97589044b7b339a2d2d4839743'
-  const CLIENT_SECRET = 'a698f263d34e427c8f4c14e95bdc9aa3'
-  const CALLBACK_URL = 'http://lvh.me'
-  const CALLBACK_PORT = 7777
-  const REDIRECT_URI = `${CALLBACK_URL}:${CALLBACK_PORT}`
-
-  const scopes = 'user-read-email playlist-read-private'
+  const {
+    client_id,
+    client_secret,
+    redirect_uri,
+    scopes
+  } = JSON.parse(fs.readFileSync(`${__dirname}/.config`))
 
   const authorizeUri = 'https://accounts.spotify.com/authorize' +
     '?response_type=code' +
-    '&client_id=' + CLIENT_ID +
+    '&client_id=' + client_id +
     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-    '&redirect_uri=' + encodeURIComponent(REDIRECT_URI)
+    '&redirect_uri=' + encodeURIComponent(redirect_uri)
 
   console.log(authorizeUri)
 }
