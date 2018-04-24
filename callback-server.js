@@ -10,7 +10,7 @@ const {
   client_secret,
   redirect_uri,
   scopes
-} = JSON.parse(fs.readFileSync(`${__dirname}/.config`))
+} = require('./config')
 
 const requestToken = code => {
   const basicAuthorization = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
