@@ -3,13 +3,13 @@ const fs = require('fs')
 
 const runCallbackServer = () => {
   const server = fork(`${__dirname}/callback-server.js`)
-  
+
   const persistToken = token => fs.writeFileSync(`${__dirname}/.token`, token)
 
   server.on('message', message => {
     persistToken(message)
     console.log('Logged In!')
-    process.exit()
+    server.kill()
   })
 }
 
@@ -31,7 +31,5 @@ const showLoginUrl = () => {
   console.log(authorizeUri)
 }
 
-module.exports = () => {
-  showLoginUrl()
-  runCallbackServer()
-}
+showLoginUrl()
+runCallbackServer()
