@@ -1,42 +1,16 @@
 const http = require('http')
 const url = require('url')
-const request = require('request')
-const state = require('./state')
-
-const {
-  clientId,
-  clientSecret,
-  redirectUri,
-  scopes
-} = state.get('spotify.config').value()
-
-const requestToken = code => {
-  const basicAuthorization = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
-  return request.post({
-    url: 'https://accounts.spotify.com/api/token',
-    headers: {
-      'Authorization': `Basic ${basicAuthorization}`
-    },
-    form: {
-      grant_type: 'authorization_code',
-      code,
-      redirect_uri: redirectUri,
-      scopes
-    }
-  }, (_, res, body) => {
-    process.send(body)
-  })
-}
 
 const server = http.createServer((req, res) => {
-  const { query } = url.parse(req.url, true)
-  if (query.code) {
+  const { query: { code } } = url.parse(req.url, true)
+
+  if (code) {
     res.write(`<script>window.close()</script>`)
-    requestToken(query.code)
+    process.send(code)
   }
 })
 
-const port = url.parse(redirectUri).port || 3000
+const port = 7777
 
 server.listen(port, err => {
   if (err)

@@ -1,6 +1,16 @@
 const program = require('commander')
+const { fork } = require('child_process')
 
 program
-  .command('spotify', 'Login to your Spotify Account')
-  .command('youtube', 'Login to your Youtube Account')
+  .option('-p, --provider <provider>', 'Select social idp to connect')
   .parse(process.argv)
+
+const oauth2 = require('./oauth2')(program.provider)
+console.log(oauth2.authorize())
+
+const child = fork('./callback-server')
+child.on('message', message => {
+  oauth2.token(message)
+  console.log('Login successful')
+  child.kill()
+})
