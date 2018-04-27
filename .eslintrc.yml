@@ -1,3 +1,4 @@
 extends: standard
 rules:
   curly: [error, multi]
+  array-bracket-spacing: [error, always]
