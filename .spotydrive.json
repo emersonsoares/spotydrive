@@ -7,10 +7,10 @@
       "scopes": "user-read-email playlist-read-private"
     },
     "token": {
-      "access_token": "BQAaRKSXSYSaFfmJBlp4rL0p0VNuqxJDxgXyEVZt2bfZRhZ9El7v52_bMwekPr36jzGQk4ttZ3g8uCPN8AY0drY73yeWpC8YGahkl5KzTuWsCzyhsJ5iT2NcdBcv2sn-Dw1TH7A3tsfx7fIG-smGwbJ-r_SbdpZxjAOjYw",
+      "access_token": "BQBNE3ao5sLLo0RNqUKjQP2JICpD6adnB3qdVYRawF1w8rGUp8uvKGvSbR2I4JYBSWFOvpXO69WnBDgKYkin9vo0C8uh4OZsW2-bk8quJ0Gjy3DffwYWLRIiaeNzHWhWChWilAcvLtvZU8eRD0IvOSy1Rah1dzi5qnBeIg",
       "token_type": "Bearer",
       "expires_in": 3600,
-      "refresh_token": "AQA8SI4Toe_QoQItRFBQ_63KjdlK9jpX9xpyXD3_pfWcw7N-jdX_adNljgl2gYrqVY6jJr6rTxoVdACZ1UGAqaXA3TlO6ncZ0I6fPYRNzlNTC8lUmAY_u7aGPkd0h-6oeuY",
+      "refresh_token": "AQDcM3Ehm_SzxZNU9RkvtO0mwI17eYks2yvxp0YfV3VQFuXTzAJeIRSzj9ca0EAVTlVTZ0Qdyu1TykNK8rFcMl1KZ5LCmo80Fgo6SS8HRbrhl5hqcbenmjQuqxDVMWm0jTA",
       "scope": "playlist-read-private user-read-email"
     }
   },
