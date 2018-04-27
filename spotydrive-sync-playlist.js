@@ -1,10 +1,11 @@
 const program = require('commander')
 const request = require('request-promise')
-const { access_token: accessToken } = require('./token')
+const state = require('./state')
 
 program.parse(process.argv)
 
 const [ playlistUri ] = program.args
+const accessToken = state.get('spotify.token.access_token').value()
 
 // spotify:user:spotify:playlist:37i9dQZF1DWTlgzqHpWg4m
 const [ , , username, , playlistId ] = playlistUri.split(':')
