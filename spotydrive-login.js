@@ -4,28 +4,27 @@ const fs = require('fs')
 const runCallbackServer = () => {
   const server = fork(`${__dirname}/callback-server.js`)
 
-  const persistToken = token => fs.writeFileSync(`${__dirname}/.token`, token)
-
   server.on('message', message => {
     persistToken(message)
-    console.log('Logged In!')
     server.kill()
+    console.log('Logged In!')
   })
+
+  const persistToken = token => fs.writeFileSync(`${__dirname}/.token`, token)
 }
 
 const showLoginUrl = () => {
   const {
-    client_id,
-    client_secret,
-    redirect_uri,
+    clientId,
+    redirectUri,
     scopes
   } = JSON.parse(fs.readFileSync(`${__dirname}/.config`))
 
   const authorizeUri = 'https://accounts.spotify.com/authorize' +
     '?response_type=code' +
-    '&client_id=' + client_id +
+    '&client_id=' + clientId +
     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-    '&redirect_uri=' + encodeURIComponent(redirect_uri)
+    '&redirect_uri=' + encodeURIComponent(redirectUri)
 
   console.log(authorizeUri)
 }

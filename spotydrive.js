@@ -5,4 +5,5 @@ program
   .command('configure', 'Configure your Spotydrive copy').alias('c')
   .command('login', 'Login to your Spotify Account').alias('l')
   .command('my-playlists', 'show all my playlists').alias('mp')
+  .command('sync-playlist <playlist_uri>', 'sync playlist to storage').alias('sp')
   .parse(process.argv)

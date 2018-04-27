@@ -1,19 +1,16 @@
 const http = require('http')
-const https = require('https')
 const url = require('url')
-const querystring = require('querystring')
 const request = require('request')
-const fs = require('fs')
 
 const {
-  client_id,
-  client_secret,
-  redirect_uri,
+  clientId,
+  clientSecret,
+  redirectUri,
   scopes
 } = require('./config')
 
 const requestToken = code => {
-  const basicAuthorization = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
+  const basicAuthorization = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
   return request.post({
     url: 'https://accounts.spotify.com/api/token',
     headers: {
@@ -22,16 +19,17 @@ const requestToken = code => {
     form: {
       grant_type: 'authorization_code',
       code,
-      redirect_uri: redirect_uri
+      redirect_uri: redirectUri,
+      scopes
     }
-  }, (err, res, body) => {
+  }, (_, res, body) => {
     process.send(body)
   })
 }
 
 const server = http.createServer((req, res) => {
   const { query } = url.parse(req.url, true)
-  if(query.code) {
+  if (query.code) {
     res.write(`
       <script>window.close()</script>
     `)
@@ -39,7 +37,7 @@ const server = http.createServer((req, res) => {
   }
 })
 
-const port = url.parse(redirect_uri).port || 3000
+const port = url.parse(redirectUri).port || 3000
 
 server.listen(port, err => {
   if (err)

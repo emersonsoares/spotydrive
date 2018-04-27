@@ -10,9 +10,9 @@ program
   .parse(process.argv)
 
 const config = {
-  client_id: program.client_id || current.client_id || '',
-  client_secret: program.client_secret || current.client_secret || '',
-  redirect_uri: program.redirect_uri || current.redirect_uri || 'http://lvh.me:7777',
+  clientId: program.client_id || current.clientId || '',
+  clientSecret: program.client_secret || current.clientSecret || '',
+  redirectUri: program.redirect_uri || current.redirectUri || 'http://lvh.me:7777',
   scopes: program.scopes || current.scopes || 'user-read-email playlist-read-private'
 }
 

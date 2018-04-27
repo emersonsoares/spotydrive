@@ -1,12 +1,10 @@
-const program = require('commander')
-const request = require('request')
 const rp = require('request-promise')
 
-const { access_token } = require('./token')
+const { access_token: accessToken } = require('./token')
 
 const options = {
   headers: {
-    'Authorization': `Bearer ${access_token}`
+    'Authorization': `Bearer ${accessToken}`
   }
 }
 
