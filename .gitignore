@@ -59,5 +59,4 @@ typings/
 
 # next.js build output
 .next
-.token
-.config
+.spotydrive.json
