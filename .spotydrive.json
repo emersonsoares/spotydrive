@@ -1,0 +1,22 @@
+{
+  "spotify": {
+    "config": {
+      "clientId": "08ccea97589044b7b339a2d2d4839743",
+      "clientSecret": "a698f263d34e427c8f4c14e95bdc9aa3",
+      "redirectUri": "http://lvh.me:7777",
+      "scopes": "user-read-email playlist-read-private"
+    },
+    "token": {
+      "access_token": "BQAaRKSXSYSaFfmJBlp4rL0p0VNuqxJDxgXyEVZt2bfZRhZ9El7v52_bMwekPr36jzGQk4ttZ3g8uCPN8AY0drY73yeWpC8YGahkl5KzTuWsCzyhsJ5iT2NcdBcv2sn-Dw1TH7A3tsfx7fIG-smGwbJ-r_SbdpZxjAOjYw",
+      "token_type": "Bearer",
+      "expires_in": 3600,
+      "refresh_token": "AQA8SI4Toe_QoQItRFBQ_63KjdlK9jpX9xpyXD3_pfWcw7N-jdX_adNljgl2gYrqVY6jJr6rTxoVdACZ1UGAqaXA3TlO6ncZ0I6fPYRNzlNTC8lUmAY_u7aGPkd0h-6oeuY",
+      "scope": "playlist-read-private user-read-email"
+    }
+  },
+  "youtube": {
+    "config": {
+      "clientId": ""
+    }
+  }
+}

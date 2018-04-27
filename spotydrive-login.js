@@ -1,16 +1,14 @@
 const { fork } = require('child_process')
-const fs = require('fs')
+const state = require('./state')
 
 const runCallbackServer = () => {
   const server = fork(`${__dirname}/callback-server.js`)
 
   server.on('message', message => {
-    persistToken(message)
+    state.set('spotify.token', JSON.parse(message)).write()
     server.kill()
     console.log('Logged In!')
   })
-
-  const persistToken = token => fs.writeFileSync(`${__dirname}/.token`, token)
 }
 
 const showLoginUrl = () => {
@@ -18,7 +16,7 @@ const showLoginUrl = () => {
     clientId,
     redirectUri,
     scopes
-  } = JSON.parse(fs.readFileSync(`${__dirname}/.config`))
+  } = state.get('spotify.config').value()
 
   const authorizeUri = 'https://accounts.spotify.com/authorize' +
     '?response_type=code' +

@@ -1,13 +1,14 @@
 const http = require('http')
 const url = require('url')
 const request = require('request')
+const state = require('./state')
 
 const {
   clientId,
   clientSecret,
   redirectUri,
   scopes
-} = require('./config')
+} = state.get('spotify.config').value()
 
 const requestToken = code => {
   const basicAuthorization = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
@@ -30,9 +31,7 @@ const requestToken = code => {
 const server = http.createServer((req, res) => {
   const { query } = url.parse(req.url, true)
   if (query.code) {
-    res.write(`
-      <script>window.close()</script>
-    `)
+    res.write(`<script>window.close()</script>`)
     requestToken(query.code)
   }
 })
