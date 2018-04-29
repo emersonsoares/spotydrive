@@ -15,6 +15,4 @@ const port = 7777
 server.listen(port, err => {
   if (err)
     console.log('Shit happened with the server', err)
-
-  console.log(`Callback server runnning on: ${port}`)
 })

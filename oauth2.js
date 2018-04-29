@@ -1,6 +1,7 @@
 const request = require('request-promise')
 const state = require('./state')
 const util = require('util')
+const terminalLink = require('terminal-link')
 
 const oauth2 = (provider) => {
   const {
@@ -12,11 +13,14 @@ const oauth2 = (provider) => {
     tokenEndpoint
   } = state.get(`${provider}.oauth2`).value()
 
-  const authorize = () => authorizeEndpoint +
-    '?response_type=code' +
-    '&client_id=' + clientId +
-    (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-    '&redirect_uri=' + encodeURIComponent(redirectUri)
+  const authorize = () => {
+    const link = authorizeEndpoint +
+      '?response_type=code' +
+      '&client_id=' + clientId +
+      (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+      '&redirect_uri=' + encodeURIComponent(redirectUri)
+    return terminalLink(`Click here to login on ${provider}`, link)
+  }
 
   const token = code => {
     const basicAuthorization = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')

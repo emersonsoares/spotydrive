@@ -25,6 +25,7 @@
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
     "spotify-web-api-node": "^3.0.0",
+    "terminal-link": "^1.1.0",
     "youtube-mp3-downloader": "^0.5.3"
   },
   "devDependencies": {
