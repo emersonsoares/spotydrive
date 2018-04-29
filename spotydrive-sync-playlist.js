@@ -8,7 +8,11 @@ const Multiprogress = require('multi-progress')
 const state = require('./state')
 const createSyncState = require('./sync-state')
 
-const syncState = createSyncState('downloads')
+const homeDir = require('os').homedir()
+
+const syncStatePath = path.join(homeDir, '.spotydrive', 'downloads')
+
+const syncState = createSyncState(syncStatePath)
 
 program.parse(process.argv)
 
@@ -74,7 +78,7 @@ const sync = playlist => {
   const getSyncInfo = () => syncState.get(`sync.${uri}`).value()
   const create = () => {
     syncState.set(`sync.${uri}`, { uri, name, tracks: [] }).write()
-    fs.ensureDirSync(path.join('downloads', name))
+    fs.ensureDirSync(path.join(syncStatePath, name))
     return true
   }
 
@@ -91,7 +95,7 @@ const sync = playlist => {
 const download = matched => {
   const { uri, name, tracks } = matched
   const YD = new YoutubeMp3Downloader({
-    outputPath: path.join(__dirname, 'downloads', name),
+    outputPath: path.join(syncStatePath, name),
     youtubeVideoQuality: 'highest',
     queueParallelism: 3,
     progressTimeout: 2000

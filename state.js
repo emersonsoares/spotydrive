@@ -1,7 +1,14 @@
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
+const fs = require('fs-extra')
+const path = require('path')
+const homeDir = require('os').homedir()
 
-const adapter = new FileSync('.spotydrive.json')
+const stateFile = path.join(homeDir, '.spotydrive.json')
+
+fs.ensureFileSync(stateFile)
+
+const adapter = new FileSync(stateFile)
 const db = low(adapter)
 
 db.defaults({
