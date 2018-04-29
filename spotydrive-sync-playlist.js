@@ -3,6 +3,7 @@ const request = require('request-promise')
 const YoutubeMp3Downloader = require('youtube-mp3-downloader')
 const path = require('path')
 const fs = require('fs-extra')
+const Multiprogress = require('multi-progress')
 
 const state = require('./state')
 const createSyncState = require('./sync-state')
@@ -92,17 +93,34 @@ const download = matched => {
   const YD = new YoutubeMp3Downloader({
     outputPath: path.join(__dirname, 'downloads', name),
     youtubeVideoQuality: 'highest',
-    queueParallelism: 2,
+    queueParallelism: 3,
     progressTimeout: 2000
   })
 
-  const onFinished = {}
+  const multi = Multiprogress(process.stderr)
 
-  tracks.map(track => {
+  const onFinished = {}
+  const onProgress = {}
+
+  tracks.map(function (track) {
     const trackDisplay = `${track.name} - ${track.artists.join(', ')}`
-    console.log(`Downloading ${trackDisplay}`)
 
     YD.download(track.video.id, `${track.name} - ${track.artists.join(', ')}.mp3`)
+
+    let bar
+    onProgress[track.video.id] = progress => {
+      if (!bar)
+        bar = multi.newBar(`  downloading ${trackDisplay} [:bar] :percent :etas `, {
+          total: progress.progress.length,
+          curr: progress.progress.percentage,
+          complete: '=',
+          incomplete: ' ',
+          head: '>',
+          width: 20
+        })
+      else
+        bar.tick(progress.progress.delta)
+    }
 
     onFinished[track.video.id] = (err, data) => {
       if (err) throw console.error()
@@ -111,12 +129,16 @@ const download = matched => {
         .push(track)
         .write()
 
-      console.log(`${trackDisplay} Downloaded`)
+      bar.tick(bar.total - bar.curr)
     }
   })
 
   YD.on('finished', (err, data) => {
     onFinished[data.videoId](err, data)
+  })
+
+  YD.on('progress', progress => {
+    onProgress[progress.videoId](progress)
   })
 
   YD.on('error', (err) => {
