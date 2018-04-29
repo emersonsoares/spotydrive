@@ -1,13 +1,19 @@
 const program = require('commander')
 const request = require('request-promise')
+const YoutubeMp3Downloader = require('youtube-mp3-downloader')
+const path = require('path')
+const fs = require('fs-extra')
+
 const state = require('./state')
-const util = require('util')
+const createSyncState = require('./sync-state')
+
+const syncState = createSyncState('downloads')
 
 program.parse(process.argv)
 
 const [ playlistUri ] = program.args
 
-const loadPlaylist = uri => {
+const fetchPlaylist = uri => {
   const accessToken = state.get('spotify.token.access_token').value()
 
   // spotify:user:spotify:playlist:37i9dQZF1DWTlgzqHpWg4m
@@ -23,6 +29,7 @@ const loadPlaylist = uri => {
     .then(response => JSON.parse(response))
     .then(playlist => ({
       uri: playlist.uri,
+      name: playlist.name,
       tracks: playlist.tracks.items.map(item => ({
         uri: item.track.uri,
         name: item.track.name,
@@ -60,17 +67,63 @@ const matchYouTubeVideo = track => {
     }))
 }
 
+const sync = playlist => {
+  const { uri, name } = playlist
+
+  const getSyncInfo = () => syncState.get(`sync.${uri}`).value()
+  const create = () => {
+    syncState.set(`sync.${uri}`, { uri, name, tracks: [] }).write()
+    fs.ensureDirSync(path.join('downloads', name))
+    return true
+  }
+
+  const playlistSync = getSyncInfo() || (create() && getSyncInfo())
+
+  const tasks = playlist.tracks.filter(track => !playlistSync.tracks.some(t => t.uri === track.uri))
+
+  console.log(`Syncing playlist: ${name}`)
+
+  return Promise.all(tasks.map(matchYouTubeVideo))
+    .then(tracks => ({ ...playlist, tracks }))
+}
+
 const download = matched => {
-  matched.tracks.map(track => {
-    console.log(`Downloading ${track.name} - ${track.artists.join(', ')} => ${track.video.id}`)
+  const { uri, name, tracks } = matched
+  const YD = new YoutubeMp3Downloader({
+    outputPath: path.join(__dirname, 'downloads', name),
+    youtubeVideoQuality: 'highest',
+    queueParallelism: 2,
+    progressTimeout: 2000
+  })
+
+  const onFinished = {}
+
+  tracks.map(track => {
+    const trackDisplay = `${track.name} - ${track.artists.join(', ')}`
+    console.log(`Downloading ${trackDisplay}`)
+
+    YD.download(track.video.id, `${track.name} - ${track.artists.join(', ')}.mp3`)
+
+    onFinished[track.video.id] = (err, data) => {
+      if (err) throw console.error()
+
+      syncState.get(`sync.${uri}.tracks`)
+        .push(track)
+        .write()
+
+      console.log(`${trackDisplay} Downloaded`)
+    }
+  })
+
+  YD.on('finished', (err, data) => {
+    onFinished[data.videoId](err, data)
+  })
+
+  YD.on('error', (err) => {
+    console.debug(err)
   })
 }
 
-loadPlaylist(playlistUri)
-  .then(playlist => {
-    const futureTracks = playlist.tracks.map(matchYouTubeVideo)
-    return Promise.all(futureTracks)
-      .then(tracks => ({ ...playlist, tracks }))
-  })
+fetchPlaylist(playlistUri)
+  .then(sync)
   .then(download)
-  .catch(console.log)
