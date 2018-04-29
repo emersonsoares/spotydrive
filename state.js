@@ -24,7 +24,8 @@ db.defaults({
       scopes: 'https://www.googleapis.com/auth/youtube.readonly',
       authorizeEndpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
       tokenEndpoint: 'https://www.googleapis.com/oauth2/v4/token'
-    }
+    },
+    token: { }
   }
 }).write()
 
