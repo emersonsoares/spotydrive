@@ -1,7 +1,7 @@
 {
   "name": "spotydrive",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Synchronize your Spotify playlists offline as mp3 files",
   "main": "spotydrive.js",
   "preferGlobal": true,
   "bin": {
@@ -11,20 +11,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node spotydrive.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [ "nodejs", "cli-app", "spotify", "spotify-api", "youtube-api", "commanderjs" ],
+  "author": "Emerson Soares <on.emersonsoares@gmail.com>",
+  "license": "WTFPL",
   "dependencies": {
     "commander": "^2.15.1",
-    "ffmpeg-binaries": "^3.2.2-3",
     "fs-extra": "^5.0.0",
     "lowdb": "^1.0.0",
     "multi-progress": "^2.0.0",
-    "opn": "^5.3.0",
     "progress": "^2.0.0",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
-    "spotify-web-api-node": "^3.0.0",
     "terminal-link": "^1.1.0",
     "youtube-mp3-downloader": "^0.5.3"
   },
