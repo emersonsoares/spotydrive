@@ -10,7 +10,7 @@ const createSyncState = require('./sync-state')
 
 const homeDir = require('os').homedir()
 
-const syncStatePath = path.join(homeDir, '.spotydrive', 'downloads')
+const syncStatePath = path.join(homeDir, 'spotydrive')
 
 const syncState = createSyncState(syncStatePath)
 
@@ -119,7 +119,6 @@ const download = matched => {
           curr: progress.progress.percentage,
           complete: '=',
           incomplete: ' ',
-          head: '>',
           width: 20
         })
       else
