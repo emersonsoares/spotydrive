@@ -62,3 +62,4 @@ typings/
 .spotydrive.json
 downloads
 .DS_STORE
+.vscode
