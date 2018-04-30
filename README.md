@@ -1,4 +1,4 @@
-# :construction: Spotydrive
+# :loud_sound: Spotydrive
 
 ### Synchronize your Spotify playlists offline as mp3 files.
 
