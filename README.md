@@ -1,5 +1,8 @@
 # :loud_sound: spotydrive
 
+[![Build Status](https://travis-ci.org/emersonsoares/spotydrive.svg?branch=master)](https://travis-ci.org/emersonsoares/spotydrive)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9787c59674c2d58cbebe/maintainability)](https://codeclimate.com/github/emersonsoares/spotydrive/maintainability)
+
 ### Synchronize your Spotify playlists offline as mp3 files.
 
 spotydrive is a command line tool(cli-tool) that can keep your Spotify playlists synced offline as mp3 files.
