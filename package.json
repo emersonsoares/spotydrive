@@ -1,6 +1,6 @@
 {
   "name": "spotydrive",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Synchronize your Spotify playlists offline as mp3 files",
   "main": "spotydrive.js",
   "preferGlobal": true,

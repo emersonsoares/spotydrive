@@ -9,6 +9,12 @@ spotydrive is a command line tool(cli-tool) that can keep your Spotify playlists
 
 ## Installation
 
+#### Prerequisites
+
+To run this project, you need to have a local installation of FFmpeg present on your system. You can download it from https://www.ffmpeg.org/download.html
+
+#### Installation via NPM
+
 ```console
 npm i -g spotydrive
 ```

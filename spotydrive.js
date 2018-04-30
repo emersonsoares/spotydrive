@@ -2,7 +2,7 @@
 const program = require('commander')
 
 program
-  .version('0.1.4')
+  .version('0.1.7')
   .command('configure', 'Configure your Spotydrive copy').alias('c')
   .command('connect', 'connect spotydrive to your social accounts').alias('con')
   .command('sync-playlist <playlist_uri>', 'sync playlist to storage').alias('sp')
