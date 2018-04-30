@@ -6,7 +6,7 @@
   "preferGlobal": true,
   "bin": "./spotydrive.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node spotydrive.js",
     "start": "node spotydrive.js"
   },
   "keywords": [
