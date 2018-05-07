@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/emersonsoares/spotydrive.svg?branch=master)](https://travis-ci.org/emersonsoares/spotydrive)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9787c59674c2d58cbebe/maintainability)](https://codeclimate.com/github/emersonsoares/spotydrive/maintainability)
+[![npm version](https://badge.fury.io/js/spotydrive.svg)](https://badge.fury.io/js/spotydrive)
 
 ### Synchronize your Spotify playlists offline as mp3 files.
 
